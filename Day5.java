@@ -99,31 +99,31 @@ public class Day5 {
             int y1 = Integer.parseInt(xy1[1]);
             int x2 = Integer.parseInt(xy2[0]);
             int y2 = Integer.parseInt(xy2[1]);
-            int xd = Math.abs(x1-x2);
-            int yd = Math.abs(y1-y2);
-            int xmin = Math.min(x1,x2);
-            int ymin = Math.min(y1,y2);
-            if (xd>0 && yd>0) {
+            if (x1 != x2 && y1 != y2) {
                 continue;
             }
-            if (xd>0) {
+            if (x1 != x2) {
+                int sign = x1 > x2 ? -1 : 1;
+                int xd = Math.abs(x2-x1);
                 for (int i=0; i<=xd; i++) {
-                    char d = diagram[y1][xmin+i];
+                    char d = diagram[y1][x1+i*sign];
                     if (d == '.') {
-                        diagram[y1][xmin+i] = '1';
+                        diagram[y1][x1+i*sign] = '1';
                     } else {
                         int x = Character.getNumericValue(d)+1;
-                        diagram[y1][xmin+i] = (char)(x+'0');
+                        diagram[y1][x1+i*sign] = (char)(x+'0');
                     }
                 }
             } else {
+                int sign = y1 > y2 ? -1 : 1;
+                int yd = Math.abs(y2-y1);
                 for (int i=0; i<=yd; i++) {
-                    char d = diagram[ymin+i][x1];
+                    char d = diagram[y1+i*sign][x1];
                     if (d == '.') {
-                        diagram[ymin+i][x1] = '1';
+                        diagram[y1+i*sign][x1] = '1';
                     } else {
                         int x = Character.getNumericValue(d)+1;
-                        diagram[ymin+i][x1] = (char)(x+'0');
+                        diagram[y1+i*sign][x1] = (char)(x+'0');
                     }
                 }
             }
