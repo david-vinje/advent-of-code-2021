@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Day5 {
-    private static int n = 10;
+    private static int n = 1000;
 
     public static void main(String[] args) throws IOException {
         File file = new File("day5.txt");
-        // System.out.println(part1(file));
+        System.out.println(part1(file));
         System.out.println(part2(file));
     }
 
@@ -27,59 +27,57 @@ public class Day5 {
             int y1 = Integer.parseInt(xy1[1]);
             int x2 = Integer.parseInt(xy2[0]);
             int y2 = Integer.parseInt(xy2[1]);
-            int xd = Math.abs(x1-x2);
-            int yd = Math.abs(y1-y2);
-            int xmin = Math.min(x1,x2);
-            int ymin = Math.min(y1,y2);
-            if (xd-yd == 0) {
+            int xd = Math.abs(x2-x1);
+            int yd = Math.abs(y2-y1);
+            int xsign = x1 > x2 ? -1 : 1;
+            int ysign = y1 > y2 ? -1 : 1;
+            if (xd > 0 && yd > 0) {
                 for (int i=0; i<=xd; i++) {
-                    char d = diagram[ymin+i][xmin+i];
+                    char d = diagram[y1+i*ysign][x1+i*xsign];
                     if (d == '.') {
-                        diagram[ymin+i][xmin+i] = '1';
+                        diagram[y1+i*ysign][x1+i*xsign] = '1';
                     } else {
                         int x = Character.getNumericValue(d)+1;
-                        diagram[ymin+i][xmin+i] = (char)(x+'0');
+                        diagram[y1+i*ysign][x1+i*xsign] = (char)(x+'0');
                     }
                 }
-                continue;
-            }
-            if (xd>0) {
+            } else if (xd > 0) {
                 for (int i=0; i<=xd; i++) {
-                    char d = diagram[y1][xmin+i];
+                    char d = diagram[y1][x1+i*xsign];
                     if (d == '.') {
-                        diagram[y1][xmin+i] = '1';
+                        diagram[y1][x1+i*xsign] = '1';
                     } else {
                         int x = Character.getNumericValue(d)+1;
-                        diagram[y1][xmin+i] = (char)(x+'0');
+                        diagram[y1][x1+i*xsign] = (char)(x+'0');
                     }
                 }
-            } else {
+            } else if (yd > 0) {
                 for (int i=0; i<=yd; i++) {
-                    char d = diagram[ymin+i][x1];
+                    char d = diagram[y1+i*ysign][x1];
                     if (d == '.') {
-                        diagram[ymin+i][x1] = '1';
+                        diagram[y1+i*ysign][x1] = '1';
                     } else {
                         int x = Character.getNumericValue(d)+1;
-                        diagram[ymin+i][x1] = (char)(x+'0');
+                        diagram[y1+i*ysign][x1] = (char)(x+'0');
                     }
                 }
             }
         }
         scan.close();
-        StringBuilder sb = new StringBuilder(); 
-        String formatter = "";
+        // StringBuilder sb = new StringBuilder(); 
+        // String formatter = "";
         int count = 0;
         for (int i=0; i<n; i++) {
-            sb.append(formatter);
+            // sb.append(formatter);
             for (int j=0; j<n; j++) {
                 char d = diagram[i][j];
-                formatter = "\n";
-                sb.append(d);
+                // formatter = "\n";
+                // sb.append(d);
                 if (d != '.' && Character.getNumericValue(d) > 1)
                     count++;
             }
         }
-        System.out.println(sb.toString());
+        // System.out.println(sb.toString());
         return count;
     }
 
@@ -129,20 +127,20 @@ public class Day5 {
             }
         }
         scan.close();
-        StringBuilder sb = new StringBuilder(); 
-        String formatter = "";
+        // StringBuilder sb = new StringBuilder(); 
+        // String formatter = "";
         int count = 0;
         for (int i=0; i<n; i++) {
-            sb.append(formatter);
+            // sb.append(formatter);
             for (int j=0; j<n; j++) {
                 char d = diagram[i][j];
-                formatter = "\n";
-                sb.append(d);
+                // formatter = "\n";
+                // sb.append(d);
                 if (d != '.' && Character.getNumericValue(d) > 1)
                     count++;
             }
         }
-        System.out.println(sb.toString());
+        // System.out.println(sb.toString());
         return count;
     }
 }
