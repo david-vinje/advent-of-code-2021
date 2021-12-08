@@ -1,10 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Day8 {
@@ -29,15 +31,15 @@ public class Day8 {
 
     public static void part2(File file) throws FileNotFoundException {
         Scanner scan = new Scanner(file);
-        // List<String> input = new ArrayList<>();
-        // List<String> digits = new ArrayList<>();
+        // BigInteger sum = new BigInteger("0");
+        long sum = 0;
         while (scan.hasNextLine()) {
             String[] line = scan.nextLine().split(" \\| ");
             // input.add(line[0]);
             // digits.add(line[1]);
             String input = line[0];
             String digits = line[1];
-            Map<Integer, String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>();
             List<String> twoOrThreeOrFive = new ArrayList<>();
             List<String> sixOrNineOrZero = new ArrayList<>();
             for (String s : input.split(" ")) {
@@ -47,19 +49,19 @@ public class Day8 {
                             char[] ch = ss.toCharArray();
                             Arrays.sort(ch);
                             ss = new String(ch); 
-                            map.put(1, ss);
+                            map.put("1", ss);
                             break;
                         case 3:
                             ch = ss.toCharArray();
                             Arrays.sort(ch);
                             ss = new String(ch); 
-                            map.put(7, ss);
+                            map.put("7", ss);
                             break;
                         case 4:
                             ch = ss.toCharArray();
                             Arrays.sort(ch);
                             ss = new String(ch); 
-                            map.put(4, ss);
+                            map.put("4", ss);
                             break;
                         case 5: 
                             ch = ss.toCharArray();
@@ -77,39 +79,39 @@ public class Day8 {
                             ch = ss.toCharArray();
                             Arrays.sort(ch);
                             ss = new String(ch); 
-                            map.put(8, ss);
+                            map.put("8", ss);
                     }
                 }
             }
             // find 2 using 4
             for (String s : twoOrThreeOrFive) {
-                if (findDifference(s, map.get(4)) == 3) {
+                if (findDifference(s, map.get("4")) == 3) {
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
-                    map.put(2, s);
+                    map.put("2", s);
                     twoOrThreeOrFive.remove(s);
                     break;
                 }
             }
             // find 3 and 5 using 2
             for (String s : twoOrThreeOrFive) {
-                if (findDifference(s, map.get(2)) == 1) {
+                if (findDifference(s, map.get("2")) == 1) {
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
-                    map.put(3, s);
-                } else if (findDifference(s, map.get(2)) == 2) {
+                    map.put("3", s);
+                } else if (findDifference(s, map.get("2")) == 2) {
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
-                    map.put(5, s);
+                    map.put("5", s);
                 }
             }
             // find 9 using 3
             for (String s : sixOrNineOrZero) {
-                if (findDifference(s, map.get(3)) == 1) {
-                    map.put(9, s);
+                if (findDifference(s, map.get("3")) == 1) {
+                    map.put("9", s);
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
@@ -119,22 +121,34 @@ public class Day8 {
             }
             // find zero and 6 using 7
             for (String s : sixOrNineOrZero) {
-                if (findDifference(s, map.get(7)) == 3) {
+                if (findDifference(s, map.get("7")) == 3) {
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
-                    map.put(0, s);
-                } else if (findDifference(s, map.get(7)) == 4) {
+                    map.put("0", s);
+                } else if (findDifference(s, map.get("7")) == 4) {
                     char[] ch = s.toCharArray();
                     Arrays.sort(ch);
                     s = new String(ch); 
-                    map.put(6, s);
+                    map.put("6", s);
                 }
             }
+            // String s = "";
+            StringBuilder sb = new StringBuilder();
             for (String digit : digits.split(" ")) {
-                
+                char[] ch = digit.toCharArray();
+                Arrays.sort(ch);
+                digit = new String(ch);
+                for (Entry<String, String> entry : map.entrySet()) {
+                    if (digit.equals(entry.getValue())) {
+                        // s += entry.getKey();
+                        sb.append(entry.getKey());
+                    }
+                }
             }
+            sum += Long.parseLong(sb.toString());
         }
+        System.out.println(sum);
     }
 
     public static int findDifference(String s1, String s2) {
