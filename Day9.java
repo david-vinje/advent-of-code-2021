@@ -109,22 +109,7 @@ public class Day9 {
         }
         System.out.println(basins[0] * basins[1] * basins[2]);
     }
-
-    // public static int countSize(int i, int j, int size) {
-    // int width = locations[0].length;
-    // int height = locations.length;
-    // if (i>0 && locations[i-1][j] == 0) {
-    // countSize(locations, i-1, j, size+1);
-    // } else if (i<height-1 && loc[i+1][j] == 0) {
-    // countSize(loc, i+1, j, size+1);
-    // } else if (j>0 && loc[i][j-1] == 0) {
-    // countSize(loc, i, j-1, size+1);
-    // } else if (j<width-1 && loc[i][j+1] == 0) {
-    // countSize(loc, i, j+1, size+1);
-    // }
-    // return size;
-    // }
-
+    
     public static int basinSize(List<List<Integer>> table, int i, int j) {
         count++;
         locations[i][j] = 1;
