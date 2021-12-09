@@ -35,6 +35,7 @@ public class Day9 {
         int rightLower = table.get(height - 1).get(width - 1);
         if (leftUpper < table.get(0).get(1) && leftUpper < table.get(1).get(0)) {
             int size = basinSize(table, 0, 0, POINT_INIT);
+            basins = resizeBasins(basins, size);
 
         }
         if (rightUpper < table.get(0).get(width - 2) && rightUpper < table.get(1).get(width - 1)) {
@@ -42,12 +43,10 @@ public class Day9 {
             basins = resizeBasins(basins, size);
         }
         if (leftLower < table.get(height - 2).get(0) && leftLower < table.get(height - 1).get(1)) {
-            // lowPoints *= basin(table, height - 1, 0, 1);
             int size = basinSize(table, height - 1, 0, POINT_INIT);
             basins = resizeBasins(basins, size);
         }
         if (rightLower < table.get(height - 2).get(width - 1) && rightLower < table.get(height - 1).get(width - 2)) {
-            // lowPoints *= basin(table, height - 1, width - 1, 1);
             int size = basinSize(table, height - 1, width - 1, POINT_INIT);
             basins = resizeBasins(basins, size);
         }
@@ -58,7 +57,6 @@ public class Day9 {
                             && table.get(i).get(j) < table.get(i + 1).get(j)
                             && table.get(i).get(j) < table.get(i).get(j - 1)
                             && table.get(i).get(j) < table.get(i).get(j + 1)) {
-                        // lowPoints *= basin(table, i, j, 1);
                         int size = basinSize(table, i, j, POINT_INIT);
                         basins = resizeBasins(basins, size);
                     }
@@ -67,7 +65,6 @@ public class Day9 {
                     if (point < table.get(0).get(j + 1)
                             && point < table.get(0).get(j - 1)
                             && point < table.get(1).get(j)) {
-                        // lowPoints *= basin(table, i, j, 1);
                         int size = basinSize(table, i, j, POINT_INIT);
                         basins = resizeBasins(basins, size);
                     }
@@ -76,7 +73,6 @@ public class Day9 {
                     if (point < table.get(i).get(j + 1)
                             && point < table.get(i).get(j - 1)
                             && point < table.get(i - 1).get(j)) {
-                        // lowPoints *= basin(table, i, j, 1);
                         int size = basinSize(table, i, j, POINT_INIT);
                         basins = resizeBasins(basins, size);
                     }
@@ -85,7 +81,6 @@ public class Day9 {
                     if (point < table.get(i + 1).get(0)
                             && point < table.get(i - 1).get(0)
                             && point < table.get(i).get(j + 1)) {
-                        // lowPoints *= basin(table, i, j, 1);
                         int size = basinSize(table, i, j, POINT_INIT);
                         basins = resizeBasins(basins, size);
                     }
@@ -94,7 +89,6 @@ public class Day9 {
                     if (point < table.get(i + 1).get(j)
                             && point < table.get(i - 1).get(j)
                             && point < table.get(i).get(j - 1)) {
-                        // lowPoints *= basin(table, i, j, 1);
                         int size = basinSize(table, i, j, POINT_INIT);
                         basins = resizeBasins(basins, size);
                     }
@@ -111,35 +105,39 @@ public class Day9 {
         if (j < width - 1) {
             int point = table.get(i).get(j);
             if (point < table.get(i).get(j + 1) && table.get(i).get(j + 1) != 9) {
-                size = basinSize(table, i, j + 1, size+1);
-                // return basinSize(table, i, j + 1, size+1);
+                // size = basinSize(table, i, j + 1, size+1);
+                return basinSize(table, i, j + 1, size+1);
+                // basinSize(table, i, j + 1, size+1);
             }
         }
         // Go left
         if (j > 0) {
             int point = table.get(i).get(j);
             if (point < table.get(i).get(j - 1) && table.get(i).get(j - 1) != 9) {
-                size = basinSize(table, i, j - 1, size+1);
-                // return basinSize(table, i, j - 1, size+1);
+                // size = basinSize(table, i, j - 1, size+1);
+                return basinSize(table, i, j - 1, size+1);
+                // basinSize(table, i, j - 1, size+1);
             }
         }
         // Go up
         if (i > 0) {
             int point = table.get(i).get(j);
             if (point < table.get(i - 1).get(j) && table.get(i - 1).get(j) != 9) {
-                size = basinSize(table, i - 1, j, size+1);
-                // return basinSize(table, i - 1, j, size+1);
+                // size = basinSize(table, i - 1, j, size+1);
+                return basinSize(table, i - 1, j, size+1);
+                // basinSize(table, i - 1, j, size+1);
             }
         }
         // Go down
         if (i < height - 1) {
             int point = table.get(i).get(j);
             if (point < table.get(i + 1).get(j) && table.get(i + 1).get(j) != 9) {
-                size = basinSize(table, i + 1, j, size+1);
-                // return basinSize(table, i + 1, j, size+1);
+                // size = basinSize(table, i + 1, j, size+1);
+                return basinSize(table, i + 1, j, size+1);
+                // basinSize(table, i + 1, j, size+1);
             }
         }
-        return size;
+        return size+1;
     }
 
     public static int[] resizeBasins(int[] basins, int size) {
