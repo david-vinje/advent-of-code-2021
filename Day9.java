@@ -31,6 +31,7 @@ public class Day9 {
         int width = table.get(0).size();
         int height = table.size();
         locations = new int[height][width];
+        
         // Check corners
         int leftUpper = table.get(0).get(0);
         int rightUpper = table.get(0).get(width - 1);
