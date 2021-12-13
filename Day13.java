@@ -42,7 +42,6 @@ public class Day13 {
         } else {
             paper = foldPaperHorizontally(paper, num);
         }
-        // printPaper(paper);
         System.out.println(countDots(paper));
     }
 
@@ -77,12 +76,9 @@ public class Day13 {
             String direction = folding.substring(0, 1);
             int num = Integer.parseInt(folding.substring(2));
             if (direction.equals("x")) {
-                paper = foldPaperVertically(paper, 0);
+                paper = foldPaperVertically(paper, num);
             } else {
-                paper = foldPaperHorizontally(paper, 0);
-            }
-            if (height == 13) {
-                print(paper);
+                paper = foldPaperHorizontally(paper, num);
             }
         }
         print(paper);
@@ -100,26 +96,24 @@ public class Day13 {
     }
 
     public static char[][] foldPaperVertically(char[][] paper, int num) {
-        int offSet = width%2==0 ? 1 : 0;
-        width /= 2;
-        char[][] newPaper = new char[height][width];
+        char[][] newPaper = new char[height][num];
         for (int i=0; i<height; i++) {
-            for (int j=0; j<width; j++) {
-                newPaper[i][j] = paper[i][j] == '#' || paper[i][width*2-j-offSet] == '#' ? '#' : '.';
+            for (int j=0; j<num; j++) {
+                newPaper[i][j] = paper[i][j] == '#' || paper[i][width-1-j] == '#' ? '#' : '.';
             }
         }
+        width = num;
         return newPaper;
     }
 
     public static char[][] foldPaperHorizontally(char[][] paper, int num) {
-        int offSet = height%2==0 ? 1 : 0;
-        height /= 2;
-        char[][] newPaper = new char[height][width];
-        for (int i=0; i<height; i++) {
+        char[][] newPaper = new char[num][width];
+        for (int i=0; i<num; i++) {
             for (int j=0; j<width; j++) {
-                newPaper[i][j] = paper[i][j] == '#' || paper[height*2-i-offSet][j] == '#' ? '#' : '.';
+                newPaper[i][j] = paper[i][j] == '#' || paper[height-1-i][j] == '#' ? '#' : '.';
             }
         }
+        height = num;
         return newPaper;
     }
 
