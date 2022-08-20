@@ -53,15 +53,9 @@ public class Day13 {
             String[] nums = line.split(",");
             int x = Integer.parseInt(nums[0]);
             int y = Integer.parseInt(nums[1]);
-            // width = Math.max(width, x+1);
-            // height = Math.max(height, y+1);
             pos.add(new int[]{x, y});
             line = scan.nextLine();
         }
-        // double a = width*Math.sqrt(2);
-        // double b = height*Math.sqrt(2);
-        // height = Math.max(height, (int)a);
-        // width = Math.max(width, (int)b);
         List<String> foldings = new ArrayList<>();
         while (scan.hasNextLine()) {
             line = scan.nextLine().replace("fold along ", "");
