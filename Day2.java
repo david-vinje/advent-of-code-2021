@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Day2 {
     public static void main(String[] args) {
-        File file = new File("Day2.txt");
+        File file = new File("day2.txt");
         part1(file); part2(file);
     }
 

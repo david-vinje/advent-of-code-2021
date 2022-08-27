@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Day1 {
     public static void main(String[] args) {
-        File file = new File("Day1.txt");
+        File file = new File("day1.txt");
         System.out.println(partOne(file));
         System.out.println(partTwo(file));
     }
