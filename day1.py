@@ -4,7 +4,7 @@ f = [int(x) for x in open('day1.txt').readlines()]
 count = 0
 for i in range(len(f)-1):
   if f[i] < f[i+1]:
-    count += 1
+    count += 1w
 print(count)
 
 # part two

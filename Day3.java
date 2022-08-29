@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,7 +45,7 @@ public class Day3 {
         int n = bits.get(0).length();
         List<String> generator = new ArrayList<>(bits);
         List<String> scrubber = new ArrayList<>(bits);
-        for (int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             if (scrubber.size() > 1) {
                 scrubber = scrub(scrubber, i);
             }
@@ -60,40 +59,41 @@ public class Day3 {
 
     public static List<String> scrub(List<String> scrubber, int pos) {
         int zeros = 0, ones = 0;
-        for (String s: scrubber) {
+        for (String s : scrubber) {
             if (Character.getNumericValue(s.charAt(pos)) == 0)
                 zeros++;
-            else 
+            else
                 ones++;
         }
-        int i = zeros<=ones ? 0 : 1;
+        int i = zeros <= ones ? 0 : 1;
         List<String> tmp = new ArrayList<>(scrubber);
         for (String s : scrubber) {
             if (Character.getNumericValue(s.charAt(pos)) != i) {
                 tmp.remove(s);
-                if (tmp.size()==1)
+                if (tmp.size() == 1)
                     return tmp;
             }
         }
-        return tmp; 
+        return tmp;
     }
+
     public static List<String> gen(List<String> scrubber, int pos) {
         int zeros = 0, ones = 0;
-        for (String s: scrubber) {
+        for (String s : scrubber) {
             if (Character.getNumericValue(s.charAt(pos)) == 0)
                 zeros++;
-            else 
+            else
                 ones++;
         }
-        int i = zeros>ones ? 0 : 1;
+        int i = zeros > ones ? 0 : 1;
         List<String> tmp = new ArrayList<>(scrubber);
         for (String s : scrubber) {
             if (Character.getNumericValue(s.charAt(pos)) != i) {
                 tmp.remove(s);
-                if (tmp.size()==1)
+                if (tmp.size() == 1)
                     return tmp;
             }
         }
-        return tmp; 
+        return tmp;
     }
 }
